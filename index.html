@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>Fruit of the Spirit</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+    :root {
+      color-scheme: light dark;
+      --paper: #f7f3e9;
+      --paper-deep: #eee6d5;
+      --ink: #202a23;
+      --muted: #5e675f;
+      --forest: #2d5338;
+      --forest-deep: #173823;
+      --wine: #74384b;
+      --gold: #aa7d31;
+      --rule: #d7cbb6;
+      --card: rgba(255, 253, 247, .88);
+      --shadow: 0 18px 55px rgba(46, 40, 28, .10);
+      --focus: #8b4b2f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #151b17;
+        --paper-deep: #20281f;
+        --ink: #f1ecdf;
+        --muted: #c3c9bf;
+        --forest: #9bc596;
+        --forest-deep: #c5dec0;
+        --wine: #d793aa;
+        --gold: #dbb86c;
+        --rule: #3c493e;
+        --card: rgba(29, 37, 30, .94);
+        --shadow: 0 20px 60px rgba(0, 0, 0, .28);
+        --focus: #e2b36d;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 18px;
+      line-height: 1.68;
+    }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    .hero {
+      min-height: 400px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(247,243,233,.16) 0%, rgba(247,243,233,.25) 45%, rgba(247,243,233,.9) 76%, var(--paper) 100%), url('assets/fruit-vine.webp') left center / cover no-repeat;
+    }
+    .hero-inner {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      padding: 80px 0 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 460px);
+      gap: 48px;
+    }
+    .hero-copy { grid-column: 2; }
+    .eyebrow {
+      color: #604126;
+      font-weight: 700;
+      font-size: .82rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+    h1, h2, blockquote { font-family: "Libre Baskerville", Georgia, serif; }
+    h1 { font-size: clamp(2.45rem, 6vw, 4.35rem); line-height: 1.06; letter-spacing: -.035em; margin: 0 0 18px; color: #1c3924; }
+    .intro { margin: 0; max-width: 42ch; font-size: 1.08rem; color: #39473b; }
+
+    main { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 38px 0 72px; }
+    .anchor {
+      padding: 24px 26px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .anchor p { font-family: "Libre Baskerville", Georgia, serif; margin: 0 auto 8px; max-width: 800px; font-size: clamp(1rem, 2.2vw, 1.2rem); line-height: 1.75; }
+    .reference { color: var(--muted); font-weight: 700; font-size: .86rem; letter-spacing: .04em; }
+
+    .day-nav {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 7px;
+      margin: 0 0 26px;
+      padding: 0;
+      list-style: none;
+    }
+    .day-nav button {
+      width: 100%;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 10px 4px 9px;
+      line-height: 1.1;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .day-nav button:hover { border-color: var(--forest); color: var(--forest-deep); }
+    .day-nav button[aria-selected="true"] { background: var(--forest-deep); color: var(--paper); border-color: var(--forest-deep); }
+    .day-num { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; opacity: .78; }
+    .day-word { display: block; font-family: "Libre Baskerville", Georgia, serif; font-size: .81rem; }
+
+    .devotional {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 560px;
+    }
+    .side {
+      background: var(--forest-deep);
+      color: #f8f2e5;
+      padding: 42px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .day-label { margin: 0 0 10px; font-weight: 700; font-size: .8rem; letter-spacing: .11em; text-transform: uppercase; color: #d8c795; }
+    .side h2 { font-size: 2rem; line-height: 1.18; margin: 0; font-weight: 400; }
+    .side-mark { font-family: "Libre Baskerville", Georgia, serif; color: #d8c795; font-size: 4rem; line-height: .6; opacity: .78; }
+    .content { padding: 46px clamp(28px, 6vw, 70px) 38px; max-width: 760px; }
+    blockquote { margin: 0 0 30px; padding: 0 0 26px; border-bottom: 1px solid var(--rule); font-size: clamp(1.12rem, 2vw, 1.32rem); line-height: 1.68; color: var(--forest-deep); }
+    blockquote cite { display: block; margin-top: 10px; font-family: "Source Sans 3", sans-serif; font-size: .84rem; font-style: normal; font-weight: 700; color: var(--muted); }
+    .reflection { margin: 0 0 32px; }
+    .prayer {
+      background: var(--paper-deep);
+      padding: 22px 24px;
+      border-radius: 4px;
+      border-left: 3px solid var(--gold);
+    }
+    .prayer-label { margin: 0 0 7px; color: var(--wine); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .prayer p:last-child { margin: 0; font-family: "Libre Baskerville", Georgia, serif; font-size: .98rem; line-height: 1.65; }
+
+    .controls { display: flex; justify-content: space-between; gap: 14px; margin-top: 24px; }
+    .controls button {
+      min-height: 48px;
+      padding: 10px 18px;
+      border: 1px solid var(--forest);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--forest-deep);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .controls button:hover:not(:disabled) { background: var(--forest-deep); color: var(--paper); }
+    .controls button:disabled { opacity: .35; cursor: default; }
+    footer { text-align: center; color: var(--muted); font-size: .84rem; padding: 28px 20px 38px; }
+
+    @media (prefers-color-scheme: dark) {
+      .hero::before { background: linear-gradient(90deg, rgba(21,27,23,.25) 0%, rgba(21,27,23,.5) 44%, rgba(21,27,23,.93) 74%, var(--paper) 100%), url('assets/fruit-vine.webp') left center / cover no-repeat; filter: saturate(.75); }
+      .eyebrow { color: var(--gold); }
+      h1 { color: #e4eddf; }
+      .intro { color: #d4dbd1; }
+      .day-nav button[aria-selected="true"] { color: #162019; }
+      .controls button:hover:not(:disabled) { color: #162019; }
+    }
+
+    @media (max-width: 760px) {
+      body { font-size: 17px; }
+      .hero { min-height: 490px; align-items: end; }
+      .hero::before { background: linear-gradient(180deg, rgba(247,243,233,.04) 0%, rgba(247,243,233,.08) 35%, rgba(247,243,233,.88) 68%, var(--paper) 100%), url('assets/fruit-vine.webp') 31% center / cover no-repeat; }
+      .hero-inner { width: min(100% - 30px, 600px); display: block; padding: 250px 0 34px; }
+      .hero-copy { max-width: 520px; }
+      h1 { font-size: clamp(2.3rem, 12vw, 3.5rem); }
+      main { width: min(100% - 26px, 680px); padding-top: 25px; }
+      .anchor { padding: 20px 5px; }
+      .day-nav { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+      .day-nav button { min-height: 52px; }
+      .day-word { font-size: .78rem; }
+      .devotional { grid-template-columns: 1fr; }
+      .side { min-height: 145px; padding: 28px 26px; flex-direction: row; align-items: end; }
+      .side-mark { font-size: 3.2rem; }
+      .content { padding: 32px 24px 28px; }
+      .prayer { padding: 19px 18px; }
+      .controls button { flex: 1; }
+      @media (prefers-color-scheme: dark) {
+        .hero::before { background: linear-gradient(180deg, rgba(21,27,23,.05) 0%, rgba(21,27,23,.16) 35%, rgba(21,27,23,.88) 67%, var(--paper) 100%), url('assets/fruit-vine.webp') 31% center / cover no-repeat; }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print { .day-nav, .controls { display: none; } .devotional { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">A nine-day devotional</p>
+        <h1>Abide, and bear fruit.</h1>
+        <p class="intro">Walk slowly through the Spirit’s fruit—not as a list to achieve, but as the life of Jesus formed in those who abide in Him.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="anchor" aria-label="Theme Scripture">
+      <p>“But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance: against such there is no law.”</p>
+      <span class="reference">Galatians 5:22–23 · KJV</span>
+    </section>
+
+    <nav aria-label="Choose a devotional day">
+      <div class="day-nav" role="tablist" aria-label="Nine days"></div>
+    </nav>
+
+    <article class="devotional" id="devotional" aria-live="polite">
+      <aside class="side">
+        <div>
+          <p class="day-label" id="dayLabel"></p>
+          <h2 id="fruitTitle"></h2>
+        </div>
+        <span class="side-mark" aria-hidden="true">❦</span>
+      </aside>
+      <div class="content">
+        <blockquote id="scripture"></blockquote>
+        <p class="reflection" id="reflection"></p>
+        <div class="prayer">
+          <p class="prayer-label">Prayer</p>
+          <p id="prayerText"></p>
+        </div>
+      </div>
+    </article>
+
+    <div class="controls" aria-label="Day controls">
+      <button type="button" id="prevButton">← Previous</button>
+      <button type="button" id="nextButton">Next →</button>
+    </div>
+  </main>
+
+  <footer>Scripture quotations are from the King James Version.</footer>
+
+  <script>
+    const days = [
+      {
+        fruit: "Love",
+        scripture: "“As the Father hath loved me, so have I loved you: continue ye in my love.”",
+        reference: "John 15:9",
+        reflection: "The love named first is not something we manufacture by straining harder. It begins with the Father’s love for the Son and reaches us through Jesus. We remain there—received, known, and held—and His love starts to overflow toward the people before us. Today, before asking how well you have loved, rest in this: Christ has loved you. Let every act of patient, costly care grow from that settled place.",
+        prayer: "Lord Jesus, keep me abiding in Your love. Let the love You have freely given me become love that is patient, honest, and generous toward others. Amen."
+      },
+      {
+        fruit: "Joy",
+        scripture: "“These things have I spoken unto you, that my joy might remain in you, and that your joy might be full.”",
+        reference: "John 15:11",
+        reflection: "Christian joy is deeper than a bright mood. Jesus speaks of His own joy remaining in us—the gladness of belonging to the Father, doing His will, and knowing that His love cannot be exhausted. Sorrow may sit beside this joy, but it cannot uproot it. Joy ripens as we return to Christ’s words and receive the quiet gift of His presence in an ordinary day.",
+        prayer: "Jesus, let Your joy remain in me today. Beneath every changing feeling, make me glad that I am Yours and You are near. Amen."
+      },
+      {
+        fruit: "Peace",
+        scripture: "“Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you.”",
+        reference: "John 14:27",
+        reflection: "The peace of Jesus is not denial, distance, or a life without trouble. It is His own steadiness given in the middle of what is real. He knew the cross was near when He spoke these words, yet He rested in the Father’s love and purpose. Bring Him what troubles you without polishing it. His peace is a gift to receive, not a mood you must force.",
+        prayer: "Prince of Peace, quiet my heart in Your faithful care. Teach me to bring every fear to You and to walk through this day calm in Your presence. Amen."
+      },
+      {
+        fruit: "Patience",
+        scripture: "“But let patience have her perfect work, that ye may be perfect and entire, wanting nothing.”",
+        reference: "James 1:4",
+        reflection: "Patience is love refusing to hurry God or give up on people. The Spirit grows it in delays, interruptions, and unfinished stories—the places where we would rather escape. Waiting is not empty when it is entrusted to the Father. He can use the slow work to make us whole, softening our reactions and teaching us to stay faithful one small step at a time.",
+        prayer: "Father, do Your patient work in me. When I cannot change the timing, help me trust You, remain gentle with others, and be faithful in the next thing. Amen."
+      },
+      {
+        fruit: "Kindness",
+        scripture: "“And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ’s sake hath forgiven you.”",
+        reference: "Ephesians 4:32",
+        reflection: "Kindness gives grace a human shape: a softened answer, attention that does not rush, help offered without keeping score. Paul roots it in what God has already done for us in Christ. We do not have to protect a record of debts; we have been forgiven. Ask the Spirit to make your heart tender enough to notice the person who needs mercy today—and willing enough to act.",
+        prayer: "Holy Spirit, make my heart tender. Help me notice where a gentle word, forgiveness, or practical care can show the kindness I have received in Christ. Amen."
+      },
+      {
+        fruit: "Goodness",
+        scripture: "“O taste and see that the LORD is good: blessed is the man that trusteth in him.”",
+        reference: "Psalm 34:8",
+        reflection: "Goodness begins in God Himself. He is not merely useful to us; He is good, and every true good reflects His character. The Spirit’s goodness in us is integrity with warmth—choosing what is right because we trust the One who defines what is good. Taste His goodness in remembered mercies today, then let gratitude become honest, life-giving action.",
+        prayer: "Good Father, open my eyes to Your goodness. Form in me a clean heart that delights in what is right and does good without seeking praise. Amen."
+      },
+      {
+        fruit: "Faithfulness",
+        scripture: "“It is of the LORD’S mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.”",
+        reference: "Lamentations 3:22–23",
+        reflection: "Our faithfulness is an answer to His. God’s compassions arrive new in the very mornings when we feel least impressive. He keeps covenant, keeps watch, and keeps holding His people. The Spirit forms that steady character in us: keeping our word, tending what has been entrusted to us, returning after failure, and doing unseen work with love.",
+        prayer: "Faithful God, thank You that Your compassion is new this morning. Make me dependable in what You have entrusted to me, especially when no one sees. Amen."
+      },
+      {
+        fruit: "Gentleness",
+        scripture: "“Take my yoke upon you, and learn of me; for I am meek and lowly in heart.”",
+        reference: "Matthew 11:29",
+        reflection: "Jesus is powerful without harshness. His gentleness is not weakness; it is strength fully governed by love. He does not crush the weary who come to Him. To learn His gentleness is to release the need to dominate, to listen before answering, and to handle another person’s weakness with care. We become gentle by staying close to the gentle King.",
+        prayer: "Gentle Jesus, teach me Your lowliness of heart. Govern my strength, my voice, and my reactions so that weary people find mercy in the way I treat them. Amen."
+      },
+      {
+        fruit: "Self-control",
+        scripture: "“He that hath no rule over his own spirit is like a city that is broken down, and without walls.”",
+        reference: "Proverbs 25:28",
+        reflection: "Self-control is not cold self-reliance. It is the Spirit teaching our desires, words, and habits to live under the loving rule of Christ. A guarded city has room for peace to flourish; a guarded heart can pause, pray, and choose what gives life. The Spirit does not erase desire—He orders it, freeing us from being ruled by every impulse.",
+        prayer: "Holy Spirit, rule my heart today. Give me grace to pause before I act, to say no to what diminishes love, and to choose what honors Jesus. Amen."
+      }
+    ];
+
+    const nav = document.querySelector('.day-nav');
+    const dayLabel = document.getElementById('dayLabel');
+    const fruitTitle = document.getElementById('fruitTitle');
+    const scripture = document.getElementById('scripture');
+    const reflection = document.getElementById('reflection');
+    const prayerText = document.getElementById('prayerText');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let current = 0;
+
+    days.forEach((day, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.id = `tab-${index}`;
+      button.setAttribute('role', 'tab');
+      button.setAttribute('aria-controls', 'devotional');
+      button.innerHTML = `<span class="day-num">Day ${index + 1}</span><span class="day-word">${day.fruit}</span>`;
+      button.addEventListener('click', () => showDay(index, true));
+      const item = document.createElement('div');
+      item.appendChild(button);
+      nav.appendChild(item);
+    });
+
+    function showDay(index, updateHash) {
+      current = Math.max(0, Math.min(days.length - 1, index));
+      const day = days[current];
+      dayLabel.textContent = `Day ${current + 1} of ${days.length}`;
+      fruitTitle.textContent = day.fruit;
+      scripture.innerHTML = `${day.scripture}<cite>${day.reference} · KJV</cite>`;
+      reflection.textContent = day.reflection;
+      prayerText.textContent = day.prayer;
+      [...nav.querySelectorAll('button')].forEach((button, i) => {
+        button.setAttribute('aria-selected', i === current ? 'true' : 'false');
+        button.tabIndex = i === current ? 0 : -1;
+      });
+      prevButton.disabled = current === 0;
+      nextButton.disabled = current === days.length - 1;
+      nextButton.textContent = current === days.length - 1 ? 'Journey complete' : 'Next →';
+      if (updateHash) history.replaceState(null, '', `#day-${current + 1}`);
+    }
+
+    prevButton.addEventListener('click', () => showDay(current - 1, true));
+    nextButton.addEventListener('click', () => showDay(current + 1, true));
+    nav.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        const step = event.key === 'ArrowRight' ? 1 : -1;
+        const target = (current + step + days.length) % days.length;
+        showDay(target, true);
+        nav.querySelectorAll('button')[target].focus();
+      }
+    });
+
+    const match = location.hash.match(/^#day-(\d)$/);
+    showDay(match ? Number(match[1]) - 1 : 0, false);
+  </script>
+</body>
+</html>
