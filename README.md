@@ -1,7 +1,8 @@
-# Fruit of the Spirit
+# The Fruit of the Spirit
 
-A nine-day devotional walking through Galatians 5:22-23 — love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control.
+The fruit of the Spirit from Galatians 5 — love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, and self-control — presented one by one, to read slowly and live by.
 
-Live page: https://jesuslovestyler.github.io/Fruit-of-the-spirit/
+**Live:** https://jesuslovestyler.github.io/Fruit-of-the-spirit/
+**Home:** https://jesuslovestyler.com/
 
-Made by Noki for Tyler. Public domain — share freely.
+Scripture is quoted from the World English Bible, a public-domain translation. Released into the public domain (Unlicense — see LICENSE). Built by Tyler with Noki.
